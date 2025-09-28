@@ -1,0 +1,106 @@
+@use './_variables' as *;
+@use './_helpers' as *;
+
+@import url('https://fonts.googleapis.com/css2?family=Sono&family=Titillium+Web:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Code+Latin:wght@100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Spline+Sans+Mono:ital,wght@0,300;1,300&display=swap');
+
+.head-1,
+.head-2,
+.head-3,
+.head-4 {
+  font-family: "Spline Sans Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+p,
+button,
+label,
+span,
+i,
+a {
+  // font-family: 'Titillium Web', sans-serif;
+  font-family: "Spline Sans Mono", monospace;
+}
+
+
+.head-1,
+.head-2,
+.head-3,
+.head-4 {
+  font-family: "Spline Sans Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+p,
+button,
+label,
+span,
+i,
+a {
+  // font-family: 'Titillium Web', sans-serif;
+  font-family: "Spline Sans Mono", monospace;
+}
+
+
+.head-1 {
+  font-size: rem(38);
+
+  @include screen(lg) {
+    font-size: rem(80);
+  }
+}
+
+.head-2 {
+  font-size: rem(30);
+
+  @include screen(lg) {
+    font-size: rem(60);
+  }
+}
+
+.head-3 {
+  font-size: rem(20);
+
+  @include screen(lg) {
+    font-size: rem(40);
+  }
+}
+
+.head-4 {
+  font-size: rem(18);
+
+  @include screen(lg) {
+    font-size: rem(20);
+  }
+}
+
+.p {
+  font-size: rem(16);
+  line-height: 1.5em;
+
+  @include screen(lg) {
+    font-size: rem(18);
+  }
+}
+
+.cta {
+  font-size: rem(16);
+
+  @include screen(lg) {
+    font-size: rem(18);
+  }
+}
+
+.cta-bigger {
+  font-size: rem(18);
+  
+  @include screen(lg) {
+    font-size: rem(24);
+  }
+}

@@ -1,0 +1,60 @@
+@use './_variables' as *;
+@use './_helpers' as *;
+@use './_typography' as *;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  background: none;
+  margin: none;
+  padding: none;
+  border: none;
+}
+
+body {
+  font-family: 'Titillium Web', sans-serif;
+  color: $c-white;
+  background-color: $c-teal;
+}
+
+.blurred-bg {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: rem(4);
+  padding: rem(8);
+}
+
+.link {
+  color: $c-lilac;
+  text-decoration: none;
+  font-weight: 600;
+
+  @include hover {
+    &:hover {
+      color: $c-purpled;
+      text-decoration: underline;
+    }
+  }
+}
+
+.safe-area {
+  padding: rem(16);
+}
+
+.c-red {
+  color: $c-red;
+}
+.bg-red {
+  background-color: $c-red;
+}
+
+.c-gray {
+  color: $c-gray;
+}
+.bg-gray {
+  background-color: $c-gray;
+}
