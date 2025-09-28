@@ -1,0 +1,51 @@
+@use '../_variables' as *;
+@use '../_helpers' as *;
+
+.simple-cta-component {  
+  transition: color 0.3s ease-in-out, font-weight 0.3s ease-in-out;
+  font-weight: normal;
+  color: $c-lilac;
+  padding: 0 2px;
+
+  // Sostituzione di @include hover { &:hover { ... } }
+  &:hover {
+    color: $c-gray; // Sostituisci $c-dark con il tuo valore
+    font-weight: bold;
+
+    &::after {
+      transform: scaleX(0);
+      transition: transform 0.3s ease-in-out;
+    }
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    padding: 0 2px;
+    background-color: $c-lilac;
+    transform: scaleX(1);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  &::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: calc(100% + 2px);
+    bottom: -2px;
+    left: 0;
+    padding: 0 2px;
+    // Usa le variabili CSS React per l'animazione
+    clip-path: polygon(
+      0% var(--progress-top-angles),
+      100% var(--progress-top-angles),
+      100% var(--progress-bottom-angles),
+      0 var(--progress-bottom-angles)
+    );
+    background-color: $c-lilac;
+  }
+}
