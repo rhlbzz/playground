@@ -7,15 +7,16 @@ import React, {
 import gsap from 'gsap';
 import { isMobile } from 'mobile-device-detect';
 import { Link } from 'react-router-dom';
-import styles from '../../styles/atoms/InternalLink.module.scss';
+import styles from '../../styles/atoms/CtaComponent.module.scss';
 
 
-interface InternalLinkProps {
-  to: string;
+interface CtaComponentProps {
+  to?: string;
+  href?: string,
   children?: React.ReactNode;
 }
 
-const InternalLink: React.FC<InternalLinkProps> = ({ to, children }) => {
+const CtaComponent: React.FC<CtaComponentProps> = ({ to, href, children }) => {
   const [hover, setHover] = useState(false);
   const [progressBottomAngles, setProgressBottomAngles] = useState(100);
   const [progressTopAngles, setProgressTopAngles] = useState(100);
@@ -87,20 +88,37 @@ const InternalLink: React.FC<InternalLinkProps> = ({ to, children }) => {
     '--progress-top-angles': `${progressTopAngles}%`, 
   } as React.CSSProperties), [progressBottomAngles, progressTopAngles]);
 
-  return (
-    <Link
-      to={to}
-      className={`${styles['simple-cta-component']} relative inline-block`}
-      style={componentStyles}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-    >
-      <span className="relative">
-        {/* L'equivalente di <slot /> è `children` in React */}
-        {children}
-      </span>
-    </Link>
-  );
+  if (to && !href) {
+    return (
+      <Link
+        to={to}
+        className={`${styles['simple-cta-component']} relative inline-block`}
+        style={componentStyles}
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+      >
+        <span className="relative">
+          {children}
+        </span>
+      </Link>
+    );
+  } else if (href && !to) {
+    return (
+      <a
+        href={href}
+        className={`${styles['simple-cta-component']} relative inline-block`}
+        style={componentStyles}
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+      >
+        <span className="relative">
+          {children}
+        </span>
+      </a>
+    );
+  } else {
+    return null;
+  }
 };
 
-export default InternalLink;
+export default CtaComponent;

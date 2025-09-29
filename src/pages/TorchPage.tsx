@@ -10,13 +10,14 @@ export default function TorchPage() {
     src: defaultImg,
   }
   return (
-    <div className="w-[100vw] h-[100vh] flex justify-center items-center bg-black">
-      <div className="fixed top-1 left-1 z-2 blurred-bg">
+    <div className="w-[100vw] h-[100vh] safe-area relative flex justify-center items-center">
+
+      <TorchEffect background={background} foreground={foreground} />
+      
+      <div className="absolute safe-top w-[auto] left-[50%] transform translate-x-[-50%] blurred-bg">
         <h1 className="head-3">Torch Effect</h1>
         <p className="p">Move your mouse around to see the effect</p>
       </div>
-
-      <TorchEffect background={background} foreground={foreground} />
     </div>
   )
 };

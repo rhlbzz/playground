@@ -1,23 +1,14 @@
-import InternalLink from "../components/atoms/InternalLink";
+import CtaComponent from "../components/atoms/CtaComponent";
 
 export default function HomePage() {
   return (
-    <div className="safe-area mb-6">
-      <div className="w-full text-center">
-        <p className="p">Hi there! 👋🏼 I'm</p>
-        <h1 className="head-2">
-          <a 
-          href="https://www.rhlbzz.com/"
-          className="underline underline-offset-4 decoration-2 decoration-$c-purpled hover:decoration-$c-white transition-all"
-          target="_blank"
-          rel="nofollow noopener noreferrer">
-            Rachele Bizzarri
-          </a>
-        </h1>
-        <p className="p">I'm using this space as a playground.</p>
-        <p className="head-4">Feel free to look around 🙃 !</p>
+    <div className="safe-area">
+      <div className="w-full mb-6">
+        <p className="p">Hi there! 👋🏼</p>
+        <h1 className="p">I'm Rachele Bizzarri.</h1>
+        <p className="p">I'm using this space as a playground, feel free to look around 🙃 !</p>
       </div>
-      <InternalLink  to="/torch-effect">Torch Effect</InternalLink> 
+      <CtaComponent  to="/torch-effect">Torch Effect</CtaComponent> 
     </div>
   );
 }

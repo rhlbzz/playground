@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom';
+import Header from './Header';
 // import NavBar from './NavBar'; // Esempio di un componente fisso
 // import Footer from './Footer'; // Esempio di un componente fisso
 
@@ -6,7 +7,7 @@ function Root() {
   return (
     <div>
       {/* Elementi comuni a tutte le pagine */}
-      {/* <NavBar />  */}
+      <Header />
       
       {/* L'area in cui verrà renderizzata la pagina corrente */}
       <main className='relative min-h-screen'>

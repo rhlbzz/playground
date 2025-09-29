@@ -6,10 +6,11 @@ export default function TorchEffect(props: { background: MediaAsset, foreground:
   const { width, height} = useWindowSize();
   const [brushSize, setBrushSize] = useState(0);
   const [mousePos, setMousePos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
-  const [assets, setAssets] = useState<{ background: HTMLImageElement, foreground: HTMLImageElement } | null>(null);
-  const [imagesReady, setImagesReady] = useState(false);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const backgroundRef = useRef<HTMLImageElement>(null);
+  const foregroundRef = useRef<HTMLImageElement>(null);
+
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
   const animationFrameRef = useRef<number>(0);
 
@@ -33,66 +34,14 @@ export default function TorchEffect(props: { background: MediaAsset, foreground:
     setMousePos({ x, y });
   }, []);
 
-  const loadImages = useCallback(async () => {
-    if (!props.background.src || !props.foreground.src) {
-      console.log('No image sources provided');
-      return;
-    }
-    
-    const background = new Image();
-    const foreground = new Image();
-    
-    return new Promise<{ background: HTMLImageElement, foreground: HTMLImageElement }>((resolve) => {
-      let count = 0;
-      
-      const onLoad = () => {
-        count++;
-        console.log('Image loaded, count:', count);
-        if (count === 2) {
-          console.log('All images loaded');
-          setAssets({ background, foreground });
-          setImagesReady(true);
-          resolve({ background, foreground });
-        }
-      }
-
-      const onError = (error: string | Event) => {
-        console.error('Image failed to load:', error);
-        count++;
-        if (count === 2) {
-          setAssets({ background, foreground });
-          setImagesReady(true);
-          resolve({ background, foreground });
-        }
-      }
-
-      background.onload = () => { 
-        console.log('background loaded');
-        onLoad() 
-      };
-      background.onerror = onError;
-      
-      foreground.onload = () => { 
-        console.log('foreground loaded');
-        onLoad() 
-      };
-      foreground.onerror = onError;
-      
-      background.src = props.background.src;
-      foreground.src = props.foreground.src;
-    })
-  }, [props.background.src, props.foreground.src]);
-
   const render = useCallback(() => {
-    if (!canvasRef.current || !ctxRef.current || !assets?.background || !assets.foreground || !imagesReady) return;
-
-    if (!assets.background.complete || !assets.foreground.complete || assets.background.naturalWidth === 0 || assets.foreground.naturalWidth === 0) return;
+    if (!canvasRef.current || !ctxRef.current || !backgroundRef.current || !foregroundRef.current) return;
     
     const canvas = canvasRef.current;
     const ctx = ctxRef.current;
     
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(assets.background, 0, 0, canvas.width / window.devicePixelRatio, canvas.height / window.devicePixelRatio);
+    ctx.drawImage(backgroundRef.current, 0, 0, canvas.width / window.devicePixelRatio, canvas.height / window.devicePixelRatio);
     ctx.save();
     
     const gradient = ctx.createRadialGradient(
@@ -114,7 +63,7 @@ export default function TorchEffect(props: { background: MediaAsset, foreground:
     tmpCanvas.height = canvas.height;
     const tmpCtx = tmpCanvas.getContext('2d');
     if (!tmpCtx) return;
-    tmpCtx.drawImage(assets.foreground, 0, 0, canvas.width, canvas.height);
+    tmpCtx.drawImage(foregroundRef.current, 0, 0, canvas.width  / window.devicePixelRatio, canvas.height  / window.devicePixelRatio);
     tmpCtx.globalCompositeOperation = 'destination-in';
     tmpCtx.fillStyle = gradient;
     tmpCtx.fillRect(0, 0, canvas.width, canvas.height);
@@ -124,18 +73,8 @@ export default function TorchEffect(props: { background: MediaAsset, foreground:
     ctx.restore()
 
     animationFrameRef.current = requestAnimationFrame(render);
-  }, [assets, imagesReady, mousePos, brushSize]);
+  }, [mousePos, brushSize]);
 
-  // Esegui loadImages e resize all'avvio
-  useEffect(() => {
-    const initialize = async () => {
-      console.log('Initializing component...');
-      await loadImages();
-      resize();
-    };
-    
-    initialize();
-  }, [loadImages, resize]);
 
   useEffect(() => {
     if (!height) return;
@@ -160,18 +99,20 @@ export default function TorchEffect(props: { background: MediaAsset, foreground:
   }, [resize, handleMouseMove]);
 
   useEffect(() => { 
-    if (assets && imagesReady) animationFrameRef.current = requestAnimationFrame(render);
+    animationFrameRef.current = requestAnimationFrame(render);
 
     return () => {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [assets, imagesReady, render]);
+  }, [backgroundRef, foregroundRef, render]);
 
   return (
     <div className="size-full relative">
       <canvas ref={canvasRef} className="absolute inset-0 size-full" />
+      <img ref={backgroundRef} src={props.background.src} className="hidden" />
+      <img ref={foregroundRef} src={props.foreground.src} className="hidden" />
     </div>
   );
 }

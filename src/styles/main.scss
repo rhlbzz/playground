@@ -42,7 +42,23 @@ body {
 }
 
 .safe-area {
-  padding: rem(16);
+  padding: calc(rem($header-size) + rem(4));
+}
+
+.safe-top {
+  top: calc(rem($header-size) + rem(4));
+}
+
+.safe-right {
+  right: calc(rem($header-size) + rem(4));
+}
+
+.safe-left {
+  left: calc(rem($header-size) + rem(4));
+}
+
+.safe-bottom {
+  bottom: calc(rem($header-size) + rem(4));
 }
 
 .c-red {
@@ -57,4 +73,18 @@ body {
 }
 .bg-gray {
   background-color: $c-gray;
+}
+
+.c-teal {
+  color: $c-teal;
+}
+.bg-teal {
+  background-color: $c-teal;
+}
+
+.c-lilac {
+  color: $c-lilac;
+}
+.bg-lilac {
+  background-color: $c-lilac;
 }
