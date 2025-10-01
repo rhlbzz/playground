@@ -14,8 +14,7 @@ export default function TorchPage() {
 
       <TorchEffect background={background} foreground={foreground} />
       
-      <div className="absolute safe-top w-[auto] left-[50%] transform translate-x-[-50%] blurred-bg">
-        <h1 className="head-3">Torch Effect</h1>
+      <div className="absolute text-center p-5 safe-top w-[auto] left-[50%] transform translate-x-[-50%] blurred-bg">
         <p className="p">Move your mouse around to see the effect</p>
       </div>
     </div>

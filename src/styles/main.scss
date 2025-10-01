@@ -61,6 +61,11 @@ body {
   bottom: calc(rem($header-size) + rem(4));
 }
 
+::selection {
+  background-color: $c-lilac;
+  color: $c-gray;
+}
+
 .c-red {
   color: $c-red;
 }

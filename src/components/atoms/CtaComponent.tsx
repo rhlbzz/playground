@@ -18,13 +18,12 @@ interface CtaComponentProps {
 
 const CtaComponent: React.FC<CtaComponentProps> = ({ to, href, children }) => {
   const [hover, setHover] = useState(false);
-  const [progressBottomAngles, setProgressBottomAngles] = useState(100);
-  const [progressTopAngles, setProgressTopAngles] = useState(100);
+  const [progressBottomAngles, setProgressBottomAngles] = useState(0);
+  const [progressTopAngles, setProgressTopAngles] = useState(0);
 
   const tlRef = useRef<gsap.core.Timeline | null>(null);
 
   useEffect(() => {
-    // Crea una timeline con pausa
     const tl = gsap.timeline({ paused: true });
 
     tl.to(
